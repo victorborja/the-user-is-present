@@ -1,0 +1,11 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.marina { 
+  background-image: url('img/c.gif');
+  background-position: 0;
+  background-size: 100%;
+  min-height: 100%;
+}
