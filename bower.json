@@ -1,0 +1,19 @@
+{
+  "name": "the-user-is-present",
+  "version": "0.0.0",
+  "homepage": "https://github.com/victorborja/the-user-is-present",
+  "authors": [
+    "Victor Borja <vborja@apache.org>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "webcamjs": "*"
+  }
+}
