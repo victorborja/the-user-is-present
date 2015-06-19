@@ -1,45 +1,50 @@
 +(function ($) {
 
-  page('/marina', show('marina'), marina);
-  page('/:user', show('user'), noop);
-  page('/', show('welcome'), noop);
+  var camera_sel = '#my_camera';
+
+  page('/:user/open-camera', openCamera, function (ctx) {
+    page.redirect('/'+ctx.params.user+'/is-present');
+  });
+
+  page('/the-artist/is-present', show('marina'), marina, done);
+
+  page('/:user', show('welcome'), done);
 
   page('*', function () {
-    page.redirect('/')
+    page.redirect('/the-artist')
   })
 
   page({
     hashbang: true
   });
 
-  var camera_sel = '#my_camera';
-
-  $(document).on('click', '[data-start]', openCamera)
-  Webcam.on('live', function () {
-    $(camera_sel).attr('data-live', true);
+  $(document).on('click', '[data-start]', function () {
+    page.redirect(page.current + '/open-camera');
   });
 
-  function noop () {}
+  function done () {}
 
   function show (pageName) {
     return function (ctx, next) {
-      console.log('hide', $('section:not(.'+pageName+')'));
-      console.log('show', $('section.'+pageName));
       $('section:not(.'+pageName+')').hide();
       $('section.'+pageName).show();
       next();
     }
   }
 
-  function openCamera () {
-    var check = setInterval(proceed, 500);
+  function openCamera (ctx, next) {
+    Webcam.on('live', next);
+    Webcam.on('error', prev);
+
     Webcam.attach(camera_sel);
 
-    function proceed() {
-      if ($(camera_sel).is('[data-live]')) {
-        clearInterval(check);
-        page('/marina');
-      }
+    function prev() {
+      alert("Please allow access to your camera.");
+
+      Webcam.off('live', next);
+      Webcam.off('error', prev);
+
+      page.redirect('/'+ctx.params.user);
     }
   }
 
@@ -49,9 +54,12 @@
   }
 
   function marinaStatic() {
-    $('.marina.anim').removeClass('anim');
+    $('.full.marina.anim').removeClass('anim');
   }
 
+  function marinaAnim() {
+    $('.full.marina').addClass('anim');
+  }
 
   function take_snapshot() {
     Webcam.snap( function(data_uri) {
