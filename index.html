@@ -3,14 +3,19 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <div class="zero marina"></div>
+    <div class="zero marina">
+      <div id="my_camera"></div>
+      <div id="my_result"></div>
+    </div>
 
-    <section class='full marina anim'>
+    <section class='full welcome'>
+      Welcome to the user is present
+      <a data-start href='#'>Start</a>
     </section>
 
-    <div id="my_camera" style="width:320px; height:240px;"></div>
-    <div id="my_result"></div>
-    <a href="javascript:void(take_snapshot())">Take Snapshot</a>
+    <section class='full marina anim'>
+      <a href="javascript:void(take_snapshot())">Take Snapshot</a>
+    </section>
 
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
