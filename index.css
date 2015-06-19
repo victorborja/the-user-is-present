@@ -3,9 +3,20 @@ body {
   padding: 0;
 }
 
-.marina { 
-  background-image: url('img/c.gif');
+.full {
   background-position: 0;
   background-size: 100%;
   min-height: 100%;
+}
+
+.marina {
+  background-image: url('img/d.png');
+}
+
+.zero {
+  visibility: hidden;
+}
+
+.marina.anim { 
+  background-image: url('img/c.gif');
 }
