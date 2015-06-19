@@ -12,7 +12,12 @@
     hashbang: true
   });
 
+  var camera_sel = '#my_camera';
+
   $(document).on('click', '[data-start]', openCamera)
+  Webcam.on('live', function () {
+    $(camera_sel).attr('data-live', true);
+  });
 
   function noop () {}
 
@@ -28,10 +33,10 @@
 
   function openCamera () {
     var check = setInterval(proceed, 500);
-    Webcam.attach('#my_camera');
+    Webcam.attach(camera_sel);
 
     function proceed() {
-      if (Webcam.video) {
+      if ($(camera_sel).is('[data-live]')) {
         clearInterval(check);
         page('/marina');
       }
